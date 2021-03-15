@@ -1,16 +1,20 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
+const sauceRoute = require("./routes/sauce");
+const likeRoute = require("./routes/liked");
+const userRoute = require("./routes/user");
+const bodyParser = require("body-parser");
+const path = require("path");
 const app = express();
 
 //requête vers mongodb
 mongoose
   .connect(
-    "mongodb+srv://epok:dropknee97460@cluster0.74z7y.mongodb.net/SoPeckocko?retryWrites=true&w=majority",
+    "mongodb+srv://epok:dropknee97460@cluster0.wfwkj.mongodb.net/SoPekocko_DataBase?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("Connexion à MongoDB réussie !"))
-  .catch(() => console.log("Connexion à MongoDB échouée !"));
+  .catch((error) => console.log("Connexion à MongoDB échouée !: " + error));
 
 //Requête CORS
 app.use((req, res, next) => {
@@ -25,25 +29,14 @@ app.use((req, res, next) => {
   );
   next();
 });
+app.use(bodyParser.json());
+//Route vers le stockage des images
+app.use("/images", express.static(path.join(__dirname, "images")));
+//route utilisateur
+app.use("/api/auth", userRoute);
+//Routes sauces
+app.use("/api/sauces", sauceRoute);
+//Routes de likes
+app.use("/api/sauces", likeRoute);
 
-app.use("/api/sauces", (req, res, next) => {
-  const sauces = [
-    {
-      _id: "oeihfzeoi",
-      userId: "qsomihvqios",
-      name: "Sauce au poivre",
-      manufacturter: "Amora",
-      description: "Les infos de mon premier objet",
-      mainPepper: "principal ingrédient dans la sauce",
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg",
-      heat: 5,
-      likes: 50,
-      dislikes: 5,
-      usersLiked: ["string"],
-      usersDisliked: ["string"],
-    },
-  ];
-  res.status(200).json(sauces);
-});
 module.exports = app;
