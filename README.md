@@ -8,6 +8,6 @@ Le projet a été généré avec [NodeJS](https://github.com/nodejs/node) versio
 
 Pour faire fonctionner le projet, vous devez cloner le repository puis effectuer la commande `npm install`.
 
-## Serveur de développemnt
+## Serveur de développement
 
 Démarrer `nodemon server.js` pour avoir accès au serveur de développement. Rendez-vous sur `http://localhost:3000/`. L'application va se recharger automatiquement si vous modifiez un fichier source.
