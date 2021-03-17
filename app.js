@@ -5,6 +5,9 @@ const likeRoute = require("./routes/liked");
 const userRoute = require("./routes/user");
 const bodyParser = require("body-parser");
 const path = require("path");
+const helmet = require("helmet");
+const session = require("express-session");
+
 const app = express();
 
 //requête vers mongodb
@@ -29,7 +32,23 @@ app.use((req, res, next) => {
   );
   next();
 });
-app.use(bodyParser.json());
+
+//En tête http sécurité
+app.use(helmet());
+//désactivation de l'en-tête X-Powered-By
+app.disable("x-powered-by");
+//coockie
+app.set("trust proxy", 1); // trust first proxy
+app.use(
+  session({
+    secret: "s3Cur3",
+    name: "sessionId",
+  })
+);
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 //Route vers le stockage des images
 app.use("/images", express.static(path.join(__dirname, "images")));
 //route utilisateur
@@ -37,6 +56,6 @@ app.use("/api/auth", userRoute);
 //Routes sauces
 app.use("/api/sauces", sauceRoute);
 //Routes de likes
-app.use("/api/likes", likeRoute);
+app.use("/api/sauces", likeRoute);
 
 module.exports = app;

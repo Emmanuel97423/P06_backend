@@ -1,6 +1,9 @@
 const Sauce = require("../models/Sauce");
 const fs = require("fs");
-
+const mongoMask = require("mongo-mask");
+const map = {
+  id: "_id",
+};
 //GET toutes les sauces
 exports.getAllSauce = (req, res, next) => {
   Sauce.find()
