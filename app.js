@@ -37,6 +37,6 @@ app.use("/api/auth", userRoute);
 //Routes sauces
 app.use("/api/sauces", sauceRoute);
 //Routes de likes
-app.use("/api/sauces", likeRoute);
+app.use("/api/likes", likeRoute);
 
 module.exports = app;
