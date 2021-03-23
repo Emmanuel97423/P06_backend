@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
+const maskemail = require("maskemail");
 
 exports.signup = (req, res, next) => {
   User.findOne({ email: req.body.email }).then((email) => {
@@ -14,7 +15,7 @@ exports.signup = (req, res, next) => {
         .then((hash) => {
           const user = new User({
             userId: req.body.userId,
-            email: req.body.email,
+            email: maskemail(req.body.email, { allowed: /@\.-/ }),
             password: hash,
           });
           user
