@@ -6,6 +6,7 @@ const userRoute = require("./routes/user");
 const path = require("path");
 const helmet = require("helmet");
 const session = require("express-session");
+const mongoSanitize = require("express-mongo-sanitize");
 
 const app = express();
 
@@ -47,6 +48,16 @@ app.use(
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Pour supprimer des données, utilisez:
+app.use(mongoSanitize());
+
+// Ou, pour remplacer les caractères interdits par _, utilisez:
+app.use(
+  mongoSanitize({
+    replaceWith: "_",
+  })
+);
 
 //Route vers le stockage des images
 app.use("/images", express.static(path.join(__dirname, "images")));
