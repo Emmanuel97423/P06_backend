@@ -10,12 +10,14 @@ const mongoSanitize = require("express-mongo-sanitize");
 
 const app = express();
 
+require("dotenv").config();
+
 //requête vers mongodb
 mongoose
-  .connect(
-    "mongodb+srv://epok:dropknee97460@cluster0.wfwkj.mongodb.net/SoPekocko_DataBase?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(process.env.MONGO_CONNECTION, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch((error) => console.log("Connexion à MongoDB échouée !: " + error));
 
