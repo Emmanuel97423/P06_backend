@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const sauceRoute = require("./routes/sauce");
 const likeRoute = require("./routes/liked");
 const userRoute = require("./routes/user");
-const bodyParser = require("body-parser");
 const path = require("path");
 const helmet = require("helmet");
 const session = require("express-session");
