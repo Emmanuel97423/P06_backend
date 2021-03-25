@@ -14,7 +14,7 @@ require("dotenv").config();
 
 //requête vers mongodb
 mongoose
-  .connect(process.env.MONGO_CONNECTION, {
+  .connect(process.env.MONGO_CONNECTION_SUPER_ADMIN, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
